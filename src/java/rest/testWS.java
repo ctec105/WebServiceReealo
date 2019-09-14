@@ -16,6 +16,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import servicios.ProductoService;
@@ -46,6 +47,21 @@ public class testWS {
             List<Producto> productos = new ProductoService().listarProductos();
             
             String json = new Gson().toJson(productos);
+            
+            return Response.ok(json, MediaType.APPLICATION_JSON).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.SEE_OTHER).entity("Error: " + e.toString()).build();
+        }
+    }
+    
+    @GET
+    @Path("validarUsuario")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response validarUsuario(@QueryParam("correo") String correo, @QueryParam("contraseña") String contraseña){
+        try {
+            List<Usuario> usuarios = new UsuarioService().validarUsuario(correo, contraseña);
+            
+            String json = new Gson().toJson(usuarios);
             
             return Response.ok(json, MediaType.APPLICATION_JSON).build();
         } catch (Exception e) {

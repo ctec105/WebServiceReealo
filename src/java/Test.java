@@ -1,7 +1,7 @@
 
 
 
-import daos.ProductoDAO;
+import daos.UsuarioDAO;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -19,9 +19,9 @@ public class Test {
     }
 
     private static void registrarUsuario() {
-        ProductoDAO productoDAO = new ProductoDAO();
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
 
-        int exito = productoDAO.registrarUsuario("José", "Toro", "jtoro@gmail.com", "123456");
+        int exito = usuarioDAO.registrarUsuario("José", "Toro", "jtoro@gmail.com", "123456");
 
         if (exito > 0) {
             System.out.println("Los datos se han guardado correctamente");

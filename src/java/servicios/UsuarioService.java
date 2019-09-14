@@ -6,6 +6,8 @@
 package servicios;
 
 import daos.UsuarioDAO;
+import entidades.Usuario;
+import java.util.List;
 
 /**
  *
@@ -17,6 +19,10 @@ public class UsuarioService {
     
     public UsuarioService(){
         usuarioDAO = new UsuarioDAO();
+    }
+    
+    public List<Usuario> validarUsuario(String correo, String contraseña){
+        return usuarioDAO.validarUsuario(correo, contraseña);
     }
     
     public int registrarUsuario(String noUsu, String apeUsu, String correoUsu, String passUsu){

@@ -43,41 +43,6 @@ public class ProductoDAO {
         }
 
         return productosList;
-
-    }
-
-    public int registrarUsuario(String nombre, String apellido, String correo, String contraseña) {
-
-        int resultado = 0;
-
-        String sql = "INSERT INTO usuarios (nomUsu, apeUsu, correoUsu, passUsu) "
-                + "VALUES (?, ?, ?, ?)";
-        
-        Connection cn = Dao.getConnection();
-        
-        try {
-            PreparedStatement ps = cn.prepareStatement(sql);
-            ps.setString(1, nombre);
-            ps.setString(2, apellido);
-            ps.setString(3, correo);
-            ps.setString(4, contraseña);
-
-            resultado = ps.executeUpdate();
-
-            ps.close();
-        } catch (SQLException e) {
-            System.out.println("Error al intentar almacenar la información: " + e);
-        } finally {
-            try {
-                if (cn != null) {
-                    cn.close();
-                }
-            } catch (SQLException ex) {
-                System.out.println("Error al intentar cerrar la conexión: " + ex.getMessage());
-            }
-        }
-
-        return resultado;
     }
 
 }

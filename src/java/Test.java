@@ -1,4 +1,4 @@
-package daos;
+
 
 
 import daos.ProductoDAO;
@@ -27,7 +27,6 @@ public class Test {
             System.out.println("Los datos se han guardado correctamente");
         } else {
             System.out.println("Los datos no se pudieron guardar");
-
         }
     }
 

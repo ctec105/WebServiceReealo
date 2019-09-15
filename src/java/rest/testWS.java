@@ -80,10 +80,59 @@ public class testWS {
             
             int resultado = new UsuarioService().registrarUsuario(usuario.getNombre(), usuario.getApellido(), usuario.getCorreo(), usuario.getContraseña());
             
-            return 1;
+            return resultado;
         } catch (Exception e) {
             return -1;
         }
     }
 
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("registrarProducto")
+    public int registrarProducto(String json){
+        try {
+            Gson gson = new Gson();
+            
+            Producto producto = (Producto) gson.fromJson(json, Producto.class);
+            
+            int resultado = new ProductoService().registrarProducto(producto.getCodigo(), producto.getDescripcion(), producto.getDetalle(), producto.getStock(), producto.getPrecio(), producto.getImagen());
+            
+            return resultado;
+        } catch (Exception e) {
+            return -1;
+        }
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("actualizarProducto")
+    public int actualizarProducto(String json){
+        try {
+            Gson gson = new Gson();
+            
+            Producto producto = (Producto) gson.fromJson(json, Producto.class);
+            
+            int resultado = new ProductoService().actualizarProducto(producto.getCodigo(), producto.getDescripcion(), producto.getDetalle(), producto.getStock(), producto.getPrecio(), producto.getImagen());
+            
+            return resultado;
+        } catch (Exception e) {
+            return -1;
+        }
+    }
+
+    @GET
+    @Path("validarProducto")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response validarProducto(@QueryParam("codigo") String codigo){
+        try {
+            List<Producto> producto = new ProductoService().validarProducto(codigo);
+            
+            String json = new Gson().toJson(producto);
+            
+            return Response.ok(json, MediaType.APPLICATION_JSON).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.SEE_OTHER).entity("Error: " + e.toString()).build();
+        }
+    }
+    
 }

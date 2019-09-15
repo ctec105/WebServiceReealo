@@ -83,9 +83,8 @@ public class ProductoDAO {
     public int actualizarProducto(String codigo, String descripcion, String detalle, Integer stock, Double precio, String imagen) {
         int resultado = 0;
 
-        String sql = "UPDATE productos set  descripcion = ?, detalle = ?, stock = ?, precio = ?, imagen = ? where codProd = ?";
-              
-        
+        String sql = "UPDATE productos set descripcion = ?, detalle = ?, stock = ?, precio = ?, imagen = ? where codProd = ?";
+
         Connection cn = Dao.getConnection();
         
         try {

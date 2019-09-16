@@ -95,7 +95,7 @@ public class testWS {
             
             Producto producto = (Producto) gson.fromJson(json, Producto.class);
             
-            int resultado = new ProductoService().registrarProducto(producto.getCodigo(), producto.getDescripcion(), producto.getDetalle(), producto.getStock(), producto.getPrecio(), producto.getImagen());
+            int resultado = new ProductoService().registrarProducto(producto.getDescripcion(), producto.getDetalle(), producto.getStock(), producto.getPrecio(), producto.getImagen());
             
             return resultado;
         } catch (Exception e) {
@@ -134,5 +134,22 @@ public class testWS {
             return Response.status(Response.Status.SEE_OTHER).entity("Error: " + e.toString()).build();
         }
     }
-    
+ 
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("eliminarProducto")
+    public int eliminarProducto(String json){
+        try {
+            Gson gson = new Gson();
+            
+            Producto producto = (Producto) gson.fromJson(json, Producto.class);
+            
+            int resultado = new ProductoService().eliminarProducto(producto.getCodigo());
+            
+            return resultado;
+        } catch (Exception e) {
+            return -1;
+        }
+    }
+
 }

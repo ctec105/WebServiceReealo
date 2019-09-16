@@ -25,15 +25,18 @@ public class ProductoService {
         return productoDAO.listarProductos();
     }
  
-     public int registrarProducto(String codigo, String descripcion, String detalle, Integer stock, Double precio, String imagen){
-        return productoDAO.registrarProducto(codigo, descripcion, detalle, stock,precio,imagen);
+     public int registrarProducto(String descripcion, String detalle, Integer stock, Double precio, String imagen){
+        return productoDAO.registrarProducto(descripcion, detalle, stock,precio,imagen);
     }
     
     public int actualizarProducto(String codigo, String descripcion, String detalle, Integer stock, Double precio, String imagen){
         return productoDAO.actualizarProducto(codigo, descripcion, detalle, stock,precio,imagen);
     }
     
-     public List<Producto> validarProducto(String codigo){
+    public List<Producto> validarProducto(String codigo){
         return productoDAO.listarProductos();
+    }
+    public int eliminarProducto(String codigo){
+        return productoDAO.eliminarProducto(codigo);
     }
 }

@@ -34,7 +34,7 @@ public class ProductoService {
     }
     
     public List<Producto> validarProducto(String codigo){
-        return productoDAO.listarProductos();
+        return productoDAO.validarProducto(codigo);
     }
     public int eliminarProducto(String codigo){
         return productoDAO.eliminarProducto(codigo);

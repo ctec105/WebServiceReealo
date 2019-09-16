@@ -45,22 +45,21 @@ public class ProductoDAO {
         return productosList;
     }
  
-    public int registrarProducto(String codigo, String descripcion, String detalle, Integer stock, Double precio, String imagen) {
+    public int registrarProducto(String descripcion, String detalle, Integer stock, Double precio, String imagen) {
         int resultado = 0;
 
         String sql = "INSERT INTO productos (codProd, descripcion, detalle, stock, precio, imagen) "
-                + "VALUES (?, ?, ?, ?, ?, ? )";
+                + "VALUES ( (SELECT 'P' + RIGHT('000' + CONVERT(varchar(3), MAX(CONVERT(int, RIGHT(codProd, 3))) + 1), 3) FROM productos), ?, ?, ?, ?, ? )";
         
         Connection cn = Dao.getConnection();
         
         try {
             PreparedStatement ps = cn.prepareStatement(sql);
-            ps.setString(1, codigo);
-            ps.setString(2, descripcion);
-            ps.setString(3, detalle);
-            ps.setInt(4, stock);
-            ps.setDouble(5, precio);
-            ps.setString(6, imagen);
+            ps.setString(1, descripcion);
+            ps.setString(2, detalle);
+            ps.setInt(3, stock);
+            ps.setDouble(4, precio);
+            ps.setString(5, imagen);
             
             resultado = ps.executeUpdate();
 
@@ -140,4 +139,32 @@ public class ProductoDAO {
         return productosList;
     }
  
+    public int eliminarProducto(String codigo) {
+        int resultado = 0;
+
+        String sql = "DELETE productos where codProd  = '" + codigo + "'";
+
+        Connection cn = Dao.getConnection();
+        
+        try {
+            PreparedStatement ps = cn.prepareStatement(sql);
+            
+            resultado = ps.executeUpdate();
+
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println("Error al intentar eliminar la información: " + e);
+        } finally {
+            try {
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println("Error al intentar cerrar la conexión: " + ex.getMessage());
+            }
+        }
+
+        return resultado;
+    }
+
 }

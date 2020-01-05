@@ -45,9 +45,31 @@ public class ProductoDAO {
         return productosList;
     }
  
+    public String obtenerCodProd() {
+        String cod = "image";
+                
+        try {
+            Connection cn = Dao.getConnection();
+
+            String query = "SELECT 'P' + RIGHT('000' + CONVERT(varchar(3), MAX(CONVERT(int, RIGHT(codProd, 3))) + 1), 3) FROM productos";
+
+            PreparedStatement ps = cn.prepareCall(query);
+
+            ResultSet rs = ps.executeQuery();
+            
+            if (rs.next()){
+                cod = rs.getString(1);
+            }
+        } catch (SQLException e) {
+            System.out.println("SQLException: " + e.getMessage());
+        }
+        
+        return cod;
+    }
+    
     public int registrarProducto(String descripcion, String detalle, Integer stock, Double precio, String imagen) {
         int resultado = 0;
-
+        
         String sql = "INSERT INTO productos (codProd, descripcion, detalle, stock, precio, imagen) "
                 + "VALUES ( (SELECT 'P' + RIGHT('000' + CONVERT(varchar(3), MAX(CONVERT(int, RIGHT(codProd, 3))) + 1), 3) FROM productos), ?, ?, ?, ?, ? )";
         

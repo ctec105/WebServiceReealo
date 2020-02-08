@@ -25,7 +25,7 @@ public class ProductoDAO {
         try {
             Connection cn = Dao.getConnection();
 
-            String query = "SELECT * FROM productos";
+            String query = "SELECT * FROM usuarios";
 
             PreparedStatement ps = cn.prepareCall(query);
 

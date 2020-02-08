@@ -21,6 +21,10 @@ public class UsuarioService {
         usuarioDAO = new UsuarioDAO();
     }
     
+    public List<Usuario> listarUsuarios(){
+        return usuarioDAO.listarUsuarios();
+    }
+    
     public List<Usuario> validarUsuario(String correo, String contraseña){
         return usuarioDAO.validarUsuario(correo, contraseña);
     }

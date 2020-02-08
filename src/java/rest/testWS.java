@@ -58,6 +58,21 @@ public class testWS {
     }
     
     @GET
+    @Path("listarUsuarios")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response listarUsuarios(){
+        try {
+            List<Usuario> usuarios = new UsuarioService().listarUsuarios();
+            
+            String json = new Gson().toJson(usuarios);
+            
+            return Response.ok(json, MediaType.APPLICATION_JSON).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.SEE_OTHER).entity("Error: " + e.toString()).build();
+        }
+    }
+    
+    @GET
     @Path("validarUsuario")
     @Produces(MediaType.APPLICATION_JSON)
     public Response validarUsuario(@QueryParam("correo") String correo, @QueryParam("contraseña") String contraseña){

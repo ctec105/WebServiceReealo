@@ -19,32 +19,6 @@ import java.util.List;
  */
 public class ProductoDAO {
 
-    public List<Producto> listarProductos() {
-        List<Producto> productosList = new ArrayList<Producto>();
-
-        try {
-            Connection cn = Dao.getConnection();
-
-            String query = "SELECT * FROM usuarios";
-
-            PreparedStatement ps = cn.prepareCall(query);
-
-            ResultSet rs = ps.executeQuery();
-
-            Producto p;
-
-            while (rs.next()) {
-                p = new Producto(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getDouble(5), rs.getString(6));
-                productosList.add(p);
-            }
-
-        } catch (SQLException e) {
-            System.out.println("SQLException: " + e.getMessage());
-        }
-
-        return productosList;
-    }
- 
     public String obtenerCodProd() {
         String cod = "image";
                 
@@ -66,7 +40,59 @@ public class ProductoDAO {
         
         return cod;
     }
-    
+       
+    public List<Producto> listarProductos() {
+        List<Producto> productosList = new ArrayList<Producto>();
+
+        try {
+            Connection cn = Dao.getConnection();
+
+            String query = "SELECT * FROM productos";
+
+            PreparedStatement ps = cn.prepareCall(query);
+
+            ResultSet rs = ps.executeQuery();
+
+            Producto p;
+
+            while (rs.next()) {
+                p = new Producto(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getDouble(5), rs.getString(6));
+                productosList.add(p);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("SQLException: " + e.getMessage());
+        }
+
+        return productosList;
+    }
+ 
+    public List<Producto> validarProducto(String codigo) {
+        List<Producto> productosList = new ArrayList<Producto>();
+
+        try {
+            Connection cn = Dao.getConnection();
+
+            String query = "SELECT * FROM productos WHERE codProd = '" + codigo + "'";
+
+            PreparedStatement ps = cn.prepareCall(query);
+
+            ResultSet rs = ps.executeQuery();
+
+            Producto p;
+
+            while (rs.next()) {
+                p = new Producto(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getDouble(5), rs.getString(6));
+                productosList.add(p);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("SQLException: " + e.getMessage());
+        }
+
+        return productosList;
+    }
+ 
     public int registrarProducto(String descripcion, String detalle, Integer stock, Double precio, String imagen) {
         int resultado = 0;
         
@@ -135,32 +161,6 @@ public class ProductoDAO {
         return resultado;
     }
 
-    public List<Producto> validarProducto(String codigo) {
-        List<Producto> productosList = new ArrayList<Producto>();
-
-        try {
-            Connection cn = Dao.getConnection();
-
-            String query = "SELECT * FROM productos WHERE codProd = '" + codigo + "'";
-
-            PreparedStatement ps = cn.prepareCall(query);
-
-            ResultSet rs = ps.executeQuery();
-
-            Producto p;
-
-            while (rs.next()) {
-                p = new Producto(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getDouble(5), rs.getString(6));
-                productosList.add(p);
-            }
-
-        } catch (SQLException e) {
-            System.out.println("SQLException: " + e.getMessage());
-        }
-
-        return productosList;
-    }
- 
     public int eliminarProducto(String codigo) {
         int resultado = 0;
 
